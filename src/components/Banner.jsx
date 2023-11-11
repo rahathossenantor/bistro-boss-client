@@ -2,6 +2,7 @@ import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 const Banner = () => {
+    
     return (
         <Carousel autoPlay={true} infiniteLoop>
             <div>
@@ -12,6 +13,15 @@ const Banner = () => {
             </div>
             <div>
                 <img src="https://i.ibb.co/56WVPjq/03.png" />
+            </div>
+            <div>
+                <img src="https://i.ibb.co/dm635H9/04.jpg" />
+            </div>
+            <div>
+                <img src="https://i.ibb.co/Lkq6mHq/05.png" />
+            </div>
+            <div>
+                <img src="https://i.ibb.co/S5zGQHL/06.png" />
             </div>
         </Carousel>
     );

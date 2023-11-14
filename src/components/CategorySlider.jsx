@@ -13,6 +13,7 @@ const CategorySlider = () => {
                 slidesPerView={4}
                 spaceBetween={30}
                 freeMode={true}
+                centeredSlides={false}
                 pagination={{
                     clickable: true,
                 }}

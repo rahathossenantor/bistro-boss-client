@@ -7,6 +7,7 @@ import MenuItems from "../components/MenuItems";
 import Phone from "../components/Phone";
 import Recomendations from "../components/Recomendations";
 import Testimonials from "../components/Testimonials";
+import SectionTitle from "../components/SectionTitle";
 
 const Home = () => {
     return (
@@ -16,8 +17,9 @@ const Home = () => {
             </Helmet>
             <Banner></Banner>
             <CategorySlider></CategorySlider>
-            <Info></Info>
-            <MenuItems></MenuItems>
+            <Info title="Bistro Boss"></Info>
+            <SectionTitle title="FROM OUR MENU" subTitle="Check it out"></SectionTitle>
+            <MenuItems data={[1,1,1,1,1,1]}></MenuItems>
             <Phone></Phone>
             <Recomendations></Recomendations>
             <Features></Features>

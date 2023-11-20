@@ -1,7 +1,7 @@
 import MenuItem from "./MenuItem";
 import SectionTitle from "./SectionTitle";
 
-const Menu = () => {
+const MenuItems = () => {
     return (
         <div className="md:container md:mx-auto 2xl:px-0 xl:px-0 lg:px-5 md:px-5 px-5 mb-20">
             <SectionTitle title={"FROM OUR MENU"} subTitle={"Check it out"}></SectionTitle>
@@ -15,4 +15,4 @@ const Menu = () => {
     );
 };
 
-export default Menu;
+export default MenuItems;

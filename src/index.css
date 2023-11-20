@@ -4,10 +4,16 @@
 
 .info-bg {
     background: url("https://i.ibb.co/n18DW52/chef-service.jpg") no-repeat center;
-    background-size: cover;
+}
+
+.hero-bg {
+    background: url("https://i.ibb.co/G5QNwP4/Rectangle.png") no-repeat center;
 }
 
 .features-bg {
     background: url("https://i.ibb.co/VQm3hHR/featured.jpg") no-repeat center;
+}
+
+.info-bg, .hero-bg, .features-bg {
     background-size: cover;
 }

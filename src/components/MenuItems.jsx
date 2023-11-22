@@ -1,36 +1,20 @@
-import { useState } from "react";
+import { Link } from "react-router-dom";
 import MenuItem from "./MenuItem";
 import PropTypes from "prop-types";
 
 const MenuItems = ({ data }) => {
-    const [dataLength, setDataLength] = useState(4);
-    const [isShowAll, setIsShowAll] = useState(false);
-
-    const handleIsShowAll = () => {
-        if (dataLength === 4) {
-            setDataLength(data.length);
-        } else {
-            setDataLength(4);
-        }
-        setIsShowAll(!isShowAll);
-    };
-
-    const showAllToggleBtn = <>
-        <div className="text-center mt-5">
-            <button onClick={handleIsShowAll} className="btn btn-secondary px-7 normal-case">{!isShowAll ? "See All" : "See Less"}</button>
-        </div>
-    </>
-
     return (
         <div className="md:container md:mx-auto 2xl:px-0 xl:px-0 lg:px-5 md:px-5 px-5 mb-20">
-            <div className="grid grid-cols-1 xl:grid-cols-2 gap-5">
+            <div className="grid grid-cols-1 xl:grid-cols-2 gap-5 mb-5">
                 {
-                    data.length !== 0 && data.slice(0, dataLength).map((item, idx) => <MenuItem key={idx} menuItemData={item}></MenuItem>)
+                    data.map((item, idx) => <MenuItem key={idx} menuItemData={item}></MenuItem>)
                 }
             </div>
-            {
-                data.length > 4 && showAllToggleBtn
-            }
+            <div className="text-center">
+                <Link to={`/shop/${data[0]?.category}`}>
+                    <button className="btn normal-case border-[#BB8506] text-[#BB8506] px-6">Order Now</button>
+                </Link>
+            </div>
         </div>
     );
 };

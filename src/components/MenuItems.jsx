@@ -25,7 +25,7 @@ const MenuItems = ({ data }) => {
         <div className="md:container md:mx-auto 2xl:px-0 xl:px-0 lg:px-5 md:px-5 px-5 mb-20">
             <div className="grid grid-cols-1 xl:grid-cols-2 gap-5">
                 {
-                    data.length !== 0 && data.slice(0, dataLength).map((item, idx) => <MenuItem key={idx}></MenuItem>)
+                    data.length !== 0 && data.slice(0, dataLength).map((item, idx) => <MenuItem key={idx} menuItemData={item}></MenuItem>)
                 }
             </div>
             {

@@ -4,6 +4,8 @@ import {
 import App from "../App";
 import Home from "../pages/Home";
 import Menu from "../pages/Menu";
+import Shop from "../pages/Shop";
+import Contact from "../pages/Contact";
 
 export const router = createBrowserRouter([
     {
@@ -17,6 +19,14 @@ export const router = createBrowserRouter([
             {
                 path: "/menu",
                 element: <Menu></Menu>
+            },
+            {
+                path: "/shop",
+                element: <Shop></Shop>
+            },
+            {
+                path: "/contact",
+                element: <Contact></Contact>
             }
         ]
     },

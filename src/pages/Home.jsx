@@ -8,8 +8,12 @@ import Phone from "../components/Phone";
 import Recomendations from "../components/Recomendations";
 import Testimonials from "../components/Testimonials";
 import SectionTitle from "../components/SectionTitle";
+import useData from "../hooks/useData";
 
 const Home = () => {
+    const [menuData] = useData();
+    const popularItems = menuData.filter(item => item.category === "popular");
+
     return (
         <>
             <Helmet>
@@ -19,9 +23,12 @@ const Home = () => {
             <CategorySlider></CategorySlider>
             <Info title="Bistro Boss"></Info>
             <SectionTitle title="FROM OUR MENU" subTitle="Check it out"></SectionTitle>
-            <MenuItems data={[1,1,1,1,1,1]}></MenuItems>
+            <MenuItems data={popularItems}></MenuItems>
             <Phone></Phone>
-            <Recomendations></Recomendations>
+            <SectionTitle title={"FROM OUR MENU"} subTitle={"Check it out"}></SectionTitle>
+            <div className="md:container md:mx-auto 2xl:px-0 xl:px-0 lg:px-5 md:px-5 px-5 mb-20">
+                <Recomendations data={popularItems}></Recomendations>
+            </div>
             <Features></Features>
             <Testimonials></Testimonials>
         </>

@@ -1,6 +1,24 @@
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from "react-simple-captcha";
 
 const Login = () => {
+
+    useEffect(() => {
+        loadCaptchaEnginge(6);
+    }, []);
+
+    const captchaRef = useRef(null);
+    const [isDisabled, setIsDisabled] = useState(true);
+
+    const handleValidateCaptcha = () => {
+        const captchaValue = captchaRef.current.value;
+        if (validateCaptcha(captchaValue)) {
+            setIsDisabled(false);
+        } else {
+            setIsDisabled(true);
+        }
+    };
 
     const handleEmailPassLogin = (event) => {
         event.preventDefault();
@@ -9,6 +27,7 @@ const Login = () => {
         const email = formData.email.value;
         const password = formData.password.value;
         console.log(email, password);
+        setIsDisabled(true);
     };
 
     return (
@@ -35,15 +54,20 @@ const Login = () => {
                             <div className="form-control">
                                 <input required type="password" name="password" placeholder="Password" className="input input-bordered" />
                             </div>
-                            <div className="mt-3">
-                                <input type="checkbox" className="cursor-pointer" name="terms" id="terms" />
-                                <label className="ml-2 cursor-pointer" htmlFor="terms">Accept our terms & conditions</label>
+                        </div>
+                        <div className="form-control">
+                            <label className="label pb-1 border rounded-md my-1">
+                                <LoadCanvasTemplate />
+                            </label>
+                            <div className="flex">
+                                <input type="text" ref={captchaRef} placeholder="captcha" name="captcha" className="input input-bordered flex-1 mr-1" required />
+                                <a onClick={handleValidateCaptcha} className="btn btn-outline">Validate</a>
                             </div>
                         </div>
                         <div className="form-control mt-6">
-                            <button type="submit" className="btn px-7 py-[8px]">Sign Up</button>
+                            <button disabled={isDisabled} type="submit" className="btn px-7 py-[8px]">Sign Up</button>
                         </div>
-                        <p className="my-3">Already have an acount? <Link className="text-blue-700 underline font-medium" to="/login">Login</Link></p>
+                        <p className="my-3">New here? <Link className="text-blue-700 underline font-medium" to="/register">Create an acount</Link></p>
                         <div className="text-center">
                             <p className="text-xl mb-2">-------------or-------------</p>
                             <div className="flex items-center justify-center gap-5">

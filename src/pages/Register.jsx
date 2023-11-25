@@ -1,51 +1,63 @@
+import { Helmet } from "react-helmet-async";
+import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 
 const Register = () => {
+    const { register, handleSubmit, formState: { errors } } = useForm();
 
-    const handleEmailPassRegister = (event) => {
-        event.preventDefault();
-
-        const formData = event.target;
-        const name = formData.name.value;
-        const email = formData.email.value;
-        const password = formData.password.value;
-        console.log(name, email, password);
+    const onSubmit = (data) => {
+        console.log(data);
     };
 
     return (
         <div className="md:container md:mx-auto 2xl:px-0 xl:px-0 lg:px-5 md:px-5 px-5 py-14">
+            <Helmet>
+                <title>Register | Bistro Boss</title>
+            </Helmet>
             <div className="flex flex-col lg:flex-row xl:flex-row">
                 <div className="w-full lg:w-1/2 xl:w-1/2 flex flex-col items-center justify-center">
-                    <form onSubmit={handleEmailPassRegister} className="border p-6 w-[350px] md:w-[390px] lg:w-[380px] xl:w-[400px] bg-base-100 shadow-2xl">
+                    <form onSubmit={handleSubmit(onSubmit)} className="border p-6 w-[350px] md:w-[390px] lg:w-[380px] xl:w-[400px] bg-base-100 shadow-2xl">
                         <div className="text-center mb-5">
                             <h2 className="text-4xl font-medium">Sign Up</h2>
                         </div>
                         <div className="form-control">
-                            <label className="label py-1">
-                                <span className="text-lg">Full name <span className="text-red-500">*</span></span>
+                            <label className="label">
+                                <span className="label-text">Name <span className="text-red-500">*</span></span>
                             </label>
-                            <input type="text" placeholder="Full name" name="name" className="input input-bordered" required />
+                            <input type="text"  {...register("name", { required: true })} name="name" placeholder="Name" className="input input-bordered" />
+                            {errors.name && <span className="text-red-600">Name is required</span>}
                         </div>
                         <div className="form-control">
-                            <label className="label pb-1">
-                                <span className="text-lg">Email <span className="text-red-500">*</span></span>
+                            <label className="label">
+                                <span className="label-text">Photo URL <span className="text-red-500">*</span></span>
                             </label>
-                            <input type="email" placeholder="Email" name="email" className="input input-bordered" required />
+                            <input type="text"  {...register("photoURL", { required: true })} placeholder="Photo URL" className="input input-bordered" />
+                            {errors.photoURL && <span className="text-red-600">Photo URL is required</span>}
                         </div>
                         <div className="form-control">
-                            <label className="label pb-1">
-                                <span className="text-lg">Password <span className="text-red-500">*</span></span>
+                            <label className="label">
+                                <span className="label-text">Email <span className="text-red-500">*</span></span>
                             </label>
-                            <div className="form-control">
-                                <input required type="password" name="password" placeholder="Password" className="input input-bordered" />
-                            </div>
-                            <div className="mt-3">
-                                <input type="checkbox" className="cursor-pointer" name="terms" id="terms" />
-                                <label className="ml-2 cursor-pointer" htmlFor="terms">Accept our terms & conditions</label>
-                            </div>
+                            <input type="email"  {...register("email", { required: true })} name="email" placeholder="email" className="input input-bordered" />
+                            {errors.email && <span className="text-red-600">Email is required</span>}
+                        </div>
+                        <div className="form-control">
+                            <label className="label">
+                                <span className="label-text">Password <span className="text-red-500">*</span></span>
+                            </label>
+                            <input type="password"  {...register("password", {
+                                required: true,
+                                minLength: 6,
+                                maxLength: 20,
+                                pattern: /(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z])/
+                            })} placeholder="password" className="input input-bordered" />
+                            {errors.password?.type === "required" && <p className="text-red-600">Password is required</p>}
+                            {errors.password?.type === "minLength" && <p className="text-red-600">Password must be 6 characters</p>}
+                            {errors.password?.type === "maxLength" && <p className="text-red-600">Password must be less than 20 characters</p>}
+                            {errors.password?.type === "pattern" && <p className="text-red-600">Password must have one Uppercase one lower case, one number and one special character.</p>}
                         </div>
                         <div className="form-control mt-6">
-                            <button type="submit" className="btn px-7 py-[8px]">Sign Up</button>
+                            <input className="btn btn-primary" type="submit" value="Sign Up" />
                         </div>
                         <p className="my-3">Already have an acount? <Link className="text-blue-700 underline font-medium" to="/login">Login</Link></p>
                         <div className="text-center">

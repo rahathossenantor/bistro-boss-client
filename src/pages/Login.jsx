@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from "react-simple-captcha";
 
@@ -11,6 +12,7 @@ const Login = () => {
     const captchaRef = useRef(null);
     const [isDisabled, setIsDisabled] = useState(true);
 
+    // validatin captcha
     const handleValidateCaptcha = () => {
         const captchaValue = captchaRef.current.value;
         if (validateCaptcha(captchaValue)) {
@@ -20,6 +22,7 @@ const Login = () => {
         }
     };
 
+    // handling form
     const handleEmailPassLogin = (event) => {
         event.preventDefault();
 
@@ -32,6 +35,9 @@ const Login = () => {
 
     return (
         <div className="md:container md:mx-auto 2xl:px-0 xl:px-0 lg:px-5 md:px-5 px-5 py-14">
+            <Helmet>
+                <title>Login | Bistro Boss</title>
+            </Helmet>
             <div className="flex flex-col lg:flex-row xl:flex-row">
                 <div className="w-full lg:w-1/2 xl:w-1/2 flex justify-center items-center">
                     <img src="https://i.ibb.co/9bWDYNX/authentication.png" alt="bg-image" className="inline-block" />
@@ -63,6 +69,7 @@ const Login = () => {
                                 <input type="text" ref={captchaRef} placeholder="captcha" name="captcha" className="input input-bordered flex-1 mr-1" required />
                                 <a onClick={handleValidateCaptcha} className="btn btn-outline">Validate</a>
                             </div>
+                            <a className="label-text-alt link link-hover">Forgot password?</a>
                         </div>
                         <div className="form-control mt-6">
                             <button disabled={isDisabled} type="submit" className="btn px-7 py-[8px]">Sign Up</button>

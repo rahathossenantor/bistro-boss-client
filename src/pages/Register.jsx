@@ -1,12 +1,42 @@
+import { useContext } from "react";
 import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../providers/AuthProvider";
+import Swal from "sweetalert2";
+import { useState } from "react";
+import { updateProfile } from "firebase/auth";
 
 const Register = () => {
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const [errorStatus, setRrrorStatus] = useState("");
+    const navigate = useNavigate();
+
+    const { emailPassRegister } = useContext(AuthContext);
+    const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
     const onSubmit = (data) => {
         console.log(data);
+        emailPassRegister(data?.email, data?.password)
+            .then(res => {
+                updateProfile(res.user, {
+                    displayName: data?.name,
+                    photoURL: data?.photoURL
+                })
+                    .then(() => {
+                    }).catch((error) => {
+                        setRrrorStatus(error.message);
+                    });
+                console.log(res);
+                reset();
+                Swal.fire({
+                    title: "Success!",
+                    text: "Registration successful!",
+                    icon: "success",
+                    confirmButtonText: "Close"
+                });
+                navigate("/");
+            })
+            .catch(err => setRrrorStatus(err.message));
     };
 
     return (
@@ -68,6 +98,7 @@ const Register = () => {
                             </div>
                         </div>
                     </form>
+                    {errorStatus && <p className="text-red-700">{errorStatus}</p>}
                 </div>
                 <div className="w-full lg:w-1/2 xl:w-1/2 flex justify-center items-center">
                     <img src="https://i.ibb.co/9bWDYNX/authentication.png" alt="bg-image" className="inline-block" />

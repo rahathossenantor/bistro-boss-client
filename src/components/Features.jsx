@@ -13,7 +13,7 @@ const Features = () => {
                         <h4 className="text-2xl">March 20, 2023</h4>
                         <h3 className="text-3xl font-semibold my-1">WHERE CAN I GET SOME?</h3>
                         <p className="mb-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Error voluptate facere, deserunt dolores maiores quod nobis quas quasi. Eaque repellat recusandae ad laudantium tempore consequatur consequuntur omnis ullam maxime tenetur.</p>
-                        <button className="btn btn-accent">Read More</button>
+                        <button className="btn normal-case border-[#BB8506] text-[#BB8506] px-6">Read More</button>
                     </div>
                 </div>
             </div>

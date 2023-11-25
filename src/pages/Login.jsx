@@ -1,9 +1,18 @@
+import { useContext } from "react";
 import { useEffect, useRef, useState } from "react";
 import { Helmet } from "react-helmet-async";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from "react-simple-captcha";
+import { AuthContext } from "../providers/AuthProvider";
+import Swal from "sweetalert2";
 
 const Login = () => {
+    const { emailPassLogin } = useContext(AuthContext);
+    const navigate = useNavigate();
+    const [errorStatus, setRrrorStatus] = useState("");
+
+    const location = useLocation();
+    const destination = location.state ? location.state : "/";
 
     useEffect(() => {
         loadCaptchaEnginge(6);
@@ -29,7 +38,18 @@ const Login = () => {
         const formData = event.target;
         const email = formData.email.value;
         const password = formData.password.value;
-        console.log(email, password);
+        emailPassLogin(email, password)
+            .then(() => {
+                event.target.reset();
+                Swal.fire({
+                    title: "Success!",
+                    text: "Login successful!",
+                    icon: "success",
+                    confirmButtonText: "Close"
+                });
+                navigate(destination);
+            })
+            .catch(err => setRrrorStatus(err.message));
         setIsDisabled(true);
     };
 
@@ -65,13 +85,13 @@ const Login = () => {
                             <label className="label pb-1 border rounded-md my-1">
                                 <LoadCanvasTemplate />
                             </label>
-                            <div className="flex">
+                            <div className="flex mb-1">
                                 <input type="text" ref={captchaRef} placeholder="captcha" name="captcha" className="input input-bordered flex-1 mr-1" required />
                                 <a onClick={handleValidateCaptcha} className="btn btn-outline">Validate</a>
                             </div>
                             <a className="label-text-alt link link-hover">Forgot password?</a>
                         </div>
-                        <div className="form-control mt-6">
+                        <div className="form-control mt-3">
                             <button disabled={isDisabled} type="submit" className="btn px-7 py-[8px]">Sign Up</button>
                         </div>
                         <p className="my-3">New here? <Link className="text-blue-700 underline font-medium" to="/register">Create an acount</Link></p>
@@ -83,6 +103,7 @@ const Login = () => {
                             </div>
                         </div>
                     </form>
+                    {errorStatus && <p className="text-red-700">{errorStatus}</p>}
                 </div>
             </div>
         </div>

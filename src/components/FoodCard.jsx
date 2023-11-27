@@ -11,21 +11,31 @@ const FoodCard = ({ food }) => {
     const location = `/shop/${food.category}`;
     const navigate = useNavigate();
     const axiosSecure = useAxiosSecure();
-    const { refetch } = useCart();
+    const { cart, refetch } = useCart();
 
     const handleAddToCart = () => {
+        const isExist = cart.find(item => item._id === food._id);
+        if (isExist) {
+            Swal.fire({
+                icon: "error",
+                title: `${name} already added to your cart`,
+                showConfirmButton: false,
+                timer: 1500
+            });
+            return;
+        }
+
         if (user) {
             const cartData = {
                 _id: food._id,
                 email: user.email,
                 image, name,
-                price, recipe
+                price
             };
             axiosSecure.post("cart", cartData)
                 .then(res => {
                     if (res.data.insertedId) {
                         Swal.fire({
-                            position: "top-end",
                             icon: "success",
                             title: `${name} added to your cart`,
                             showConfirmButton: false,

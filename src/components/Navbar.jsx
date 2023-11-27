@@ -21,9 +21,11 @@ const Navbar = () => {
         }
         <NavLink to="/menu"><li className="mx-2 text-base">Menu</li></NavLink>
         <NavLink to="/shop/popular"><li className="mx-2 text-base">Shop</li></NavLink>
-        <li className="flex items-center justify-center">
-            <button className="p-0 text-base ml-2"><FaShoppingCart className="text-white hover:text-white"></FaShoppingCart><div className="badge">{cart.length}</div></button>
-        </li>
+        <NavLink to="/dashboard/my-cart">
+            <li className="flex items-center justify-center">
+                <button className="p-0 text-base ml-2"><FaShoppingCart className="text-white hover:text-white"></FaShoppingCart><div className="badge">{cart.length}</div></button>
+            </li>
+        </NavLink>
     </>
 
     return (

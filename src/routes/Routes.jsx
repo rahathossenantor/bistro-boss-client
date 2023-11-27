@@ -10,11 +10,13 @@ import Register from "../pages/Register";
 import Login from "../pages/Login";
 import PrivateRoute from "./PrivateRoute";
 import Dashboard from "../pages/dashboard/Dashboard";
+import NotFound from "../pages/NotFound";
 
 export const router = createBrowserRouter([
     {
         path: "/",
         element: <App></App>,
+        errorElement: <NotFound></NotFound>,
         children: [
             {
                 path: "/",

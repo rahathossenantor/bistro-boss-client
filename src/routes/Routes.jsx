@@ -9,7 +9,7 @@ import Contact from "../pages/Contact";
 import Register from "../pages/Register";
 import Login from "../pages/Login";
 import PrivateRoute from "./PrivateRoute";
-import Dashboard from "../pages/Dashboard";
+import Dashboard from "../pages/dashboard/Dashboard";
 
 export const router = createBrowserRouter([
     {
@@ -33,10 +33,6 @@ export const router = createBrowserRouter([
                 element: <Contact></Contact>
             },
             {
-                path: "/dashboard",
-                element: <PrivateRoute><Dashboard></Dashboard></PrivateRoute>
-            },
-            {
                 path: "/register",
                 element: <Register></Register>
             },
@@ -46,4 +42,8 @@ export const router = createBrowserRouter([
             }
         ]
     },
+    {
+        path: "/dashboard",
+        element: <PrivateRoute><Dashboard></Dashboard></PrivateRoute>
+    }
 ]);

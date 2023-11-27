@@ -1,18 +1,19 @@
-import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
+import useAxiosSecure from "./useAxiosSecure";
 
 const useData = () => {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
+    const axiosSecure = useAxiosSecure();
 
     useEffect(() => {
-        axios.get("https://raw.githubusercontent.com/ProgrammingHero1/bistro-boss-restaurant-resources/main/menu.json")
+        axiosSecure.get("/menu")
             .then(response => {
                 setData(response.data);
                 setLoading(false);
             }).catch(err => console.error(err));
-    }, []);
+    }, [axiosSecure]);
 
     return [data, loading];
 };

@@ -1,13 +1,15 @@
-import { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
-import { AuthContext } from "../providers/AuthProvider";
+import { FaShoppingCart } from "react-icons/fa";
+import useAuth from "../hooks/useAuth";
+import useCart from "../hooks/useCart";
 
 const Navbar = () => {
-    const { user, logOutUser } = useContext(AuthContext);
+    const { user, logOutUser } = useAuth();
+    const { cart } = useCart();
 
     const handleLogOut = () => {
         logOutUser()
-            .then(() => {})
+            .then(() => { })
             .catch(err => console.error(err))
     };
 
@@ -19,6 +21,9 @@ const Navbar = () => {
         }
         <NavLink to="/menu"><li className="mx-2 text-base">Menu</li></NavLink>
         <NavLink to="/shop/popular"><li className="mx-2 text-base">Shop</li></NavLink>
+        <li className="flex items-center justify-center">
+            <button className="p-0 text-base ml-2"><FaShoppingCart className="text-white hover:text-white"></FaShoppingCart><div className="badge">{cart.length}</div></button>
+        </li>
     </>
 
     return (

@@ -1,13 +1,12 @@
-import { useContext } from "react";
 import { useEffect, useRef, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from "react-simple-captcha";
-import { AuthContext } from "../providers/AuthProvider";
 import Swal from "sweetalert2";
+import useAuth from "../hooks/useAuth";
 
 const Login = () => {
-    const { emailPassLogin } = useContext(AuthContext);
+    const { emailPassLogin } = useAuth();
     const navigate = useNavigate();
     const [errorStatus, setRrrorStatus] = useState("");
 

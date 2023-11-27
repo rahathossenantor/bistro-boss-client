@@ -31,7 +31,7 @@ const Shop = () => {
             </Helmet>
 
             <Hero title="OUR SHOP"></Hero>
-            <Tabs selectedIndex={tabIndex} onSelect={(index) => setTabIndex(index)} className="md:container md:mx-auto 2xl:px-0 xl:px-0 lg:px-5 md:px-5 px-5">
+            <Tabs selectedIndex={tabIndex} onSelect={(index) => setTabIndex(index)} className="md:container md:mx-auto 2xl:px-0 xl:px-0 lg:px-5 md:px-5 px-5 mb-10">
                 <TabList>
                     <Tab>Popular</Tab>
                     <Tab>Salad</Tab>

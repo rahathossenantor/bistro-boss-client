@@ -1,7 +1,55 @@
 import PropTypes from "prop-types";
+import useAuth from "../hooks/useAuth";
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+import useAxiosSecure from "../hooks/useAxiosSecure";
+import useCart from "../hooks/useCart";
 
 const FoodCard = ({ food }) => {
     const { image, name, price, recipe } = food;
+    const { user } = useAuth();
+    const location = `/shop/${food.category}`;
+    const navigate = useNavigate();
+    const axiosSecure = useAxiosSecure();
+    const { refetch } = useCart();
+
+    const handleAddToCart = () => {
+        if (user) {
+            const cartData = {
+                _id: food._id,
+                email: user.email,
+                image, name,
+                price, recipe
+            };
+            axiosSecure.post("cart", cartData)
+                .then(res => {
+                    if (res.data.insertedId) {
+                        Swal.fire({
+                            position: "top-end",
+                            icon: "success",
+                            title: `${name} added to your cart`,
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                        refetch();
+                    }
+                })
+        } else {
+            Swal.fire({
+                title: "You are not logged in!",
+                text: "Do you want to login?",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, login!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    navigate("/login", { state: location });
+                }
+            });
+        }
+    };
 
     return (
         <div className="rounded-lg shadow-xl relative">
@@ -14,7 +62,7 @@ const FoodCard = ({ food }) => {
             <div className="p-5 rounded-lg rounded-t-none text-center">
                 <h4 className="font-semibold text-xl">{name}</h4>
                 <p className="mb-2">{recipe}</p>
-                <button className="btn normal-case border-[#BB8506] text-[#BB8506] px-6">Add to cart</button>
+                <button onClick={handleAddToCart} className="btn normal-case border-[#BB8506] text-[#BB8506] px-6">Add to cart</button>
             </div>
         </div>
     );

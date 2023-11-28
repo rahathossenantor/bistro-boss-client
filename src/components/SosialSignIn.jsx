@@ -11,8 +11,7 @@ const SosialSignIn = () => {
             .then(res => {
                 const userInfo = {
                     name: res?.user?.displayName,
-                    email: res?.user?.email,
-                    photoURL: res?.user?.photoURL
+                    email: res?.user?.email
                 };
                 axiosPublic.post("/users", userInfo)
                 .then((res) => {

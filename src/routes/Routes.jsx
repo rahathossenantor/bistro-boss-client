@@ -13,6 +13,7 @@ import Dashboard from "../pages/dashboard/Dashboard";
 import NotFound from "../pages/NotFound";
 import MyCart from "../pages/dashboard/MyCart";
 import Reservation from "../pages/dashboard/Reservation";
+import AllUsers from "../pages/dashboard/admin/AllUsers";
 
 export const router = createBrowserRouter([
     {
@@ -58,6 +59,11 @@ export const router = createBrowserRouter([
                 path: "reservation",
                 element: <Reservation></Reservation>
             },
+            // admin routes
+            {
+                path: "all-users",
+                element: <AllUsers></AllUsers>
+            }
         ]
     }
 ]);

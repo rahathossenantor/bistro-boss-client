@@ -4,6 +4,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from "react-simple-captcha";
 import Swal from "sweetalert2";
 import useAuth from "../hooks/useAuth";
+import SosialSignIn from "../components/SosialSignIn";
 
 const Login = () => {
     const { emailPassLogin } = useAuth();
@@ -94,13 +95,14 @@ const Login = () => {
                             <button disabled={isDisabled} type="submit" className="btn px-7 py-[8px]">Sign Up</button>
                         </div>
                         <p className="my-3">New here? <Link className="text-blue-700 underline font-medium" to="/register">Create an acount</Link></p>
-                        <div className="text-center">
+                        {/* <div className="text-center">
                             <p className="text-xl mb-2">-------------or-------------</p>
                             <div className="flex items-center justify-center gap-5">
                                 <a><img src="https://i.ibb.co/7j9whwL/search.png" className="w-10 cursor-pointer" alt="Google" /></a>
                                 <a><img src="https://i.ibb.co/vxj4vrN/github.png" className="w-10 cursor-pointer" alt="GtHub" /></a>
                             </div>
-                        </div>
+                        </div> */}
+                        <SosialSignIn></SosialSignIn>
                     </form>
                     {errorStatus && <p className="text-red-700">{errorStatus}</p>}
                 </div>

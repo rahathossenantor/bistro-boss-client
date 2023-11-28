@@ -5,10 +5,13 @@ import Swal from "sweetalert2";
 import { useState } from "react";
 import { updateProfile } from "firebase/auth";
 import useAuth from "../hooks/useAuth";
+import useAxiosPublic from "../hooks/useAxiosPublic";
+import SosialSignIn from "../components/SosialSignIn";
 
 const Register = () => {
     const [errorStatus, setRrrorStatus] = useState("");
     const navigate = useNavigate();
+    const axiosPublic = useAxiosPublic();
 
     const { emailPassRegister } = useAuth();
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
@@ -17,6 +20,7 @@ const Register = () => {
         console.log(data);
         emailPassRegister(data?.email, data?.password)
             .then(res => {
+                console.log(res);
                 updateProfile(res.user, {
                     displayName: data?.name,
                     photoURL: data?.photoURL
@@ -25,14 +29,23 @@ const Register = () => {
                     }).catch((error) => {
                         setRrrorStatus(error.message);
                     });
-                reset();
-                Swal.fire({
-                    title: "Success!",
-                    text: "Registration successful!",
-                    icon: "success",
-                    confirmButtonText: "Close"
-                });
-                navigate("/");
+                const userInfo = {
+                    name: data.name,
+                    email: data.email,
+                    photoURL: data.photoURL
+                };
+                axiosPublic.post("/users", userInfo)
+                    .then(() => {
+                        reset();
+                        Swal.fire({
+                            title: "Success!",
+                            text: "Registration successful!",
+                            icon: "success",
+                            confirmButtonText: "Close"
+                        });
+                        navigate("/");
+                    })
+                    .catch((error) => console.error(error));
             })
             .catch(err => setRrrorStatus(err.message));
     };
@@ -88,13 +101,14 @@ const Register = () => {
                             <input className="btn btn-primary" type="submit" value="Sign Up" />
                         </div>
                         <p className="my-3">Already have an acount? <Link className="text-blue-700 underline font-medium" to="/login">Login</Link></p>
-                        <div className="text-center">
+                        {/* <div className="text-center">
                             <p className="text-xl mb-2">-------------or-------------</p>
                             <div className="flex items-center justify-center gap-5">
                                 <a><img src="https://i.ibb.co/7j9whwL/search.png" className="w-10 cursor-pointer" alt="Google" /></a>
                                 <a><img src="https://i.ibb.co/vxj4vrN/github.png" className="w-10 cursor-pointer" alt="GtHub" /></a>
                             </div>
-                        </div>
+                        </div> */}
+                        <SosialSignIn></SosialSignIn>
                     </form>
                     {errorStatus && <p className="text-red-700">{errorStatus}</p>}
                 </div>

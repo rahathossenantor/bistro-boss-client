@@ -3,10 +3,12 @@ import SectionTitle from "../../components/SectionTitle";
 import useCart from "../../hooks/useCart";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
+import { Helmet } from "react-helmet-async";
 
 const MyCart = () => {
     const { cart, refetch } = useCart();
-    const totalPrice = cart.reduce((total, currentItem) => total + currentItem.price, 0);
+    let totalPrice = cart.reduce((total, currentItem) => total + currentItem.price, 0);
+    totalPrice = parseFloat(totalPrice.toFixed(2));
     const axiosSecure = useAxiosSecure();
 
     const handleDelete = (id) => {
@@ -38,6 +40,9 @@ const MyCart = () => {
 
     return (
         <div>
+            <Helmet>
+                <title>My cart | Bistro Boss</title>
+            </Helmet>
             <SectionTitle title="WANNA ADD MORE?" subTitle="My Cart"></SectionTitle>
             <div className="mt-10">
                 <div className="flex items-center justify-evenly mb-5">
@@ -76,7 +81,9 @@ const MyCart = () => {
                                         </td>
                                         <td className="text-xl">${cartItem.price}</td>
                                         <th className="text-center">
-                                            <button onClick={() => handleDelete(cartItem._id)} className="p-3 bg-[#B91C1C] rounded-sm"><RiDeleteBin6Line className="text-xl"></RiDeleteBin6Line></button>
+                                            <button onClick={() => handleDelete(cartItem._id)} className="p-3 bg-[#B91C1C] rounded-sm">
+                                                <RiDeleteBin6Line className="text-xl text-white"></RiDeleteBin6Line>
+                                            </button>
                                         </th>
                                     </tr>
                                 )

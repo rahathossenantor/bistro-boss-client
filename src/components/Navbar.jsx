@@ -10,7 +10,7 @@ const Navbar = () => {
     const handleLogOut = () => {
         logOutUser()
             .then(() => { })
-            .catch(err => console.error(err))
+            .catch(err => console.error(err));
     };
 
     const navItems = <>

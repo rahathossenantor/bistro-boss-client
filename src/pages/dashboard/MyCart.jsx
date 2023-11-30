@@ -6,10 +6,15 @@ import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { Helmet } from "react-helmet-async";
 
 const MyCart = () => {
+    const axiosSecure = useAxiosSecure();
     const { cart, refetch } = useCart();
+
     let totalPrice = cart.reduce((total, currentItem) => total + currentItem.price, 0);
     totalPrice = parseFloat(totalPrice.toFixed(2));
-    const axiosSecure = useAxiosSecure();
+    let totalOrders = cart.length;
+    if (totalOrders < 10) {
+        totalOrders = `0${totalOrders}`;
+    }
 
     const handleDelete = (id) => {
         Swal.fire({
@@ -46,7 +51,7 @@ const MyCart = () => {
             <SectionTitle title="WANNA ADD MORE?" subTitle="My Cart"></SectionTitle>
             <div className="mt-10">
                 <div className="flex items-center justify-evenly mb-5">
-                    <h3 className="text-3xl mr-2">Total orders: {cart.length}</h3>
+                    <h3 className="text-3xl mr-2">Total orders: {totalOrders}</h3>
                     <h3 className="text-3xl mr-2">Total price: ${totalPrice}</h3>
                     <button disabled={(totalPrice > 0) ? false : true} className="btn normal-case border-[#BB8506] text-[#BB8506] px-6">Pay ${totalPrice}</button>
                 </div>
@@ -64,10 +69,14 @@ const MyCart = () => {
                         </thead>
                         <tbody>
                             {
-                                cart.map((cartItem, idx) =>
-                                    <tr key={idx}>
+                                cart.map((cartItem, idx) => {
+                                    idx += 1;
+                                    if (idx < 10) {
+                                        idx = `0${idx}`;
+                                    }
+                                    return <tr key={idx}>
                                         <td className="text-xl text-center">
-                                            {idx + 1}
+                                            {idx}
                                         </td>
                                         <td>
                                             <div className="avatar">
@@ -81,11 +90,12 @@ const MyCart = () => {
                                         </td>
                                         <td className="text-xl">${cartItem.price}</td>
                                         <th className="text-center">
-                                            <button onClick={() => handleDelete(cartItem._id)} className="p-3 bg-[#B91C1C] rounded-sm">
+                                            <button onClick={() => handleDelete(cartItem.itemId)} className="p-3 bg-[#B91C1C] rounded-sm">
                                                 <RiDeleteBin6Line className="text-xl text-white"></RiDeleteBin6Line>
                                             </button>
                                         </th>
                                     </tr>
+                                }
                                 )
                             }
                         </tbody>

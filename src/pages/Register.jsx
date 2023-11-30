@@ -17,10 +17,8 @@ const Register = () => {
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
     const onSubmit = (data) => {
-        console.log(data);
         emailPassRegister(data?.email, data?.password)
             .then(res => {
-                console.log(res);
                 updateProfile(res.user, {
                     displayName: data?.name,
                     photoURL: data?.photoURL

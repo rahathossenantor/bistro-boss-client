@@ -14,7 +14,8 @@ const FoodCard = ({ food }) => {
     const { cart, refetch } = useCart();
 
     const handleAddToCart = () => {
-        const isExist = cart.find(item => item._id === food._id);
+        const isExist = cart.find(item => item.itemId === food._id);
+        console.log(food);
         if (isExist) {
             Swal.fire({
                 icon: "error",
@@ -27,7 +28,7 @@ const FoodCard = ({ food }) => {
 
         if (user) {
             const cartData = {
-                _id: food._id,
+                itemId: food._id,
                 email: user.email,
                 image, name,
                 price

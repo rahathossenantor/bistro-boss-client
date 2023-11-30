@@ -16,8 +16,12 @@ const AllUsers = () => {
         }
     });
 
+    let totalUsers = users.length;
+    if (totalUsers < 10) {
+        totalUsers = `0${totalUsers}`;
+    }
+
     const handleDeleteUser = (user) => {
-        console.log(user);
         Swal.fire({
             title: "Are you sure?",
             text: "You won't be able to revert this!",
@@ -44,6 +48,34 @@ const AllUsers = () => {
         });
     };
 
+    const handleMakeAdmin = (user) => {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, do it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                axiosSecure.patch(`/users/admin/${user._id}`)
+                    .then(res => {
+                        console.log(res);
+                        if (res.data?.modifiedCount) {
+                            refetch();
+                            Swal.fire({
+                                title: "Congrats!",
+                                text: `${user.name} is admin now!`,
+                                icon: "success",
+                                timer: 1500
+                            });
+                        }
+                    })
+            }
+        });
+    };
+
     return (
         <div>
             <Helmet>
@@ -52,7 +84,7 @@ const AllUsers = () => {
             <SectionTitle title="MANAGE ALL USERS" subTitle="How many?"></SectionTitle>
             <div className="mt-10">
                 <div className="mb-5">
-                    <h3 className="text-3xl">Total users: {users.length}</h3>
+                    <h3 className="text-3xl">Total users: {totalUsers}</h3>
                 </div>
                 <div className="overflow-x-auto">
                     <table className="table">
@@ -84,9 +116,13 @@ const AllUsers = () => {
                                             {user.email}
                                         </td>
                                         <td className="text-center ml-5">
-                                            <button className="p-3 bg-[#D1A054] rounded-sm">
-                                                <FaUsers className="text-xl text-white"></FaUsers>
-                                            </button>
+                                            {
+                                                user?.role === "admin" ? <span className="text-xl">Admin</span>
+                                                    :
+                                                    <button onClick={() => handleMakeAdmin(user)} className="p-3 bg-[#D1A054] rounded-sm">
+                                                        <FaUsers className="text-xl text-white"></FaUsers>
+                                                    </button>
+                                            }
                                         </td>
                                         <th className="text-center ml-5">
                                             <button onClick={() => handleDeleteUser(user)} className="p-3 bg-[#B91C1C] rounded-sm">

@@ -19,15 +19,15 @@ const Login = () => {
     }, []);
 
     const captchaRef = useRef(null);
-    const [isDisabled, setIsDisabled] = useState(true);
+    // const [isDisabled, setIsDisabled] = useState(true);
 
     // validatin captcha
     const handleValidateCaptcha = () => {
         const captchaValue = captchaRef.current.value;
         if (validateCaptcha(captchaValue)) {
-            setIsDisabled(false);
+            // setIsDisabled(false);
         } else {
-            setIsDisabled(true);
+            // setIsDisabled(true);
         }
     };
 
@@ -50,7 +50,7 @@ const Login = () => {
                 navigate(destination);
             })
             .catch(err => setRrrorStatus(err.message));
-        setIsDisabled(true);
+        // setIsDisabled(true);
     };
 
     return (
@@ -86,13 +86,13 @@ const Login = () => {
                                 <LoadCanvasTemplate />
                             </label>
                             <div className="flex mb-1">
-                                <input type="text" ref={captchaRef} placeholder="captcha" name="captcha" className="input input-bordered flex-1 mr-1" required />
+                                <input type="text" ref={captchaRef} placeholder="captcha" name="captcha" className="input input-bordered flex-1 mr-1" required={false} />
                                 <a onClick={handleValidateCaptcha} className="btn btn-outline">Validate</a>
                             </div>
                             <a className="label-text-alt link link-hover">Forgot password?</a>
                         </div>
                         <div className="form-control mt-3">
-                            <button disabled={isDisabled} type="submit" className="btn px-7 py-[8px]">Sign Up</button>
+                            <button disabled={false} type="submit" className="btn px-7 py-[8px]">Sign Up</button>
                         </div>
                         <p className="my-3">New here? <Link className="text-blue-700 underline font-medium" to="/register">Create an acount</Link></p>
                         {/* <div className="text-center">

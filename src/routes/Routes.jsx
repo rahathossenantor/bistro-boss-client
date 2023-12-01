@@ -14,6 +14,8 @@ import NotFound from "../pages/NotFound";
 import MyCart from "../pages/dashboard/MyCart";
 import Reservation from "../pages/dashboard/Reservation";
 import AllUsers from "../pages/dashboard/admin/AllUsers";
+import AddItem from "../pages/dashboard/admin/AddItem";
+import AdminRoute from "./AdminRoute";
 
 export const router = createBrowserRouter([
     {
@@ -51,6 +53,7 @@ export const router = createBrowserRouter([
         path: "/dashboard",
         element: <PrivateRoute><Dashboard></Dashboard></PrivateRoute>,
         children: [
+            // user routes
             {
                 path: "my-cart",
                 element: <MyCart></MyCart>
@@ -62,7 +65,11 @@ export const router = createBrowserRouter([
             // admin routes
             {
                 path: "all-users",
-                element: <AllUsers></AllUsers>
+                element: <AdminRoute><AllUsers></AllUsers></AdminRoute>
+            },
+            {
+                path: "add-item",
+                element: <AdminRoute><AddItem></AddItem></AdminRoute>
             }
         ]
     }

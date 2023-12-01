@@ -22,7 +22,7 @@ const Dashboard = () => {
                         isAdmin ?
                             <>
                                 <li className="mb-1 text-base border"><NavLink to="/dashboard/admin-home"><FaHome></FaHome> Admin Home</NavLink></li>
-                                <li className="mb-1 text-base border"><NavLink to="/dashboard/add-items"><FaUtensils></FaUtensils> Add Items</NavLink></li>
+                                <li className="mb-1 text-base border"><NavLink to="/dashboard/add-item"><FaUtensils></FaUtensils> Add Item</NavLink></li>
                                 <li className="mb-1 text-base border"><NavLink to="/dashboard/manage-items"><FaList></FaList> Manage Items</NavLink></li>
                                 <li className="mb-1 text-base border"><NavLink to="/dashboard/manage-bookings"><FaBook></FaBook> Manage Bookings</NavLink></li>
                                 <li className="mb-1 text-base border"><NavLink to="/dashboard/all-users"><FaUsers></FaUsers> All Users</NavLink></li>

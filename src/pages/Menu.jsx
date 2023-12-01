@@ -6,12 +6,12 @@ import Info from "../components/Info";
 import useData from "../hooks/useData";
 
 const Menu = () => {
-    const [menuData] = useData();
-    const dessertItems = menuData.filter(item => item.category === "dessert");
-    const pizzaItems = menuData.filter(item => item.category === "pizza");
-    const saladItems = menuData.filter(item => item.category === "salad");
-    const soupItems = menuData.filter(item => item.category === "soup");
-    const offeredItems = menuData.filter(item => item.category === "offered");
+    const { data } = useData();
+    const dessertItems = data.filter(item => item.category === "dessert");
+    const pizzaItems = data.filter(item => item.category === "pizza");
+    const saladItems = data.filter(item => item.category === "salad");
+    const soupItems = data.filter(item => item.category === "soup");
+    const offeredItems = data.filter(item => item.category === "offered");
 
     return (
         <>

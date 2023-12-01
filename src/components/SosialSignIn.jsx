@@ -23,7 +23,6 @@ const SosialSignIn = () => {
                             confirmButtonText: "Close"
                         });
                     } else {
-                        console.log(res.data.message);
                         Swal.fire({
                             title: "Success!",
                             text: "Login successful!",

@@ -14,13 +14,13 @@ const Shop = () => {
 
     const [tabIndex, setTabIndex] = useState(initialIndex);
 
-    const [menuData] = useData();
-    const popularItems = menuData.filter(item => item.category === "popular");
-    const saladItems = menuData.filter(item => item.category === "salad");
-    const pizzaItems = menuData.filter(item => item.category === "pizza");
-    const soupItems = menuData.filter(item => item.category === "soup");
-    const dessertItems = menuData.filter(item => item.category === "dessert");
-    const drinkItems = menuData.filter(item => item.category === "drinks");
+    const { data } = useData();
+    const popularItems = data.filter(item => item.category === "popular");
+    const saladItems = data.filter(item => item.category === "salad");
+    const pizzaItems = data.filter(item => item.category === "pizza");
+    const soupItems = data.filter(item => item.category === "soup");
+    const dessertItems = data.filter(item => item.category === "dessert");
+    const drinkItems = data.filter(item => item.category === "drinks");
 
     const tabsData = [popularItems, saladItems, pizzaItems, soupItems, dessertItems, drinkItems];
 

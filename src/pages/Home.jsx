@@ -11,8 +11,8 @@ import SectionTitle from "../components/SectionTitle";
 import useData from "../hooks/useData";
 
 const Home = () => {
-    const [menuData] = useData();
-    const popularItems = menuData.filter(item => item.category === "popular");
+    const { data } = useData();
+    const popularItems = data.filter(item => item.category === "popular");
 
     return (
         <>

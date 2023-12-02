@@ -5,6 +5,7 @@ import useData from "../../../hooks/useData";
 import { FaEdit } from "react-icons/fa";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import { Link } from "react-router-dom";
 
 const ManageItems = () => {
     const { data, refetch } = useData();
@@ -85,9 +86,11 @@ const ManageItems = () => {
                                             ${item.price}
                                         </td>
                                         <td className="text-center">
-                                            <button className="p-3 bg-[#D1A054] rounded-sm">
-                                                <FaEdit className="text-xl text-white"></FaEdit>
-                                            </button>
+                                            <Link to={`/dashboard/update-item/${item._id}`}>
+                                                <button className="p-3 bg-[#D1A054] rounded-sm">
+                                                    <FaEdit className="text-xl text-white"></FaEdit>
+                                                </button>
+                                            </Link>
                                         </td>
                                         <td className="text-center">
                                             <button onClick={() => handleDeleteItem(item)} className="p-3 bg-[#B91C1C] rounded-sm">

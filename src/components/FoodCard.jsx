@@ -15,7 +15,6 @@ const FoodCard = ({ food }) => {
 
     const handleAddToCart = () => {
         const isExist = cart.find(item => item.itemId === food._id);
-        console.log(food);
         if (isExist) {
             Swal.fire({
                 icon: "error",

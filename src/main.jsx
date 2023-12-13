@@ -20,7 +20,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <QueryClientProvider client={queryClient}>
       <HelmetProvider>
         <AuthProvider>
-          <RouterProvider router={router} />
+          <RouterProvider router={router}/>
         </AuthProvider>
       </HelmetProvider>
     </QueryClientProvider>

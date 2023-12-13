@@ -4,6 +4,7 @@ import useCart from "../../hooks/useCart";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { Helmet } from "react-helmet-async";
+import { Link } from "react-router-dom";
 
 const MyCart = () => {
     const axiosSecure = useAxiosSecure();
@@ -53,7 +54,7 @@ const MyCart = () => {
                 <div className="flex items-center justify-evenly mb-5">
                     <h3 className="text-3xl mr-2">Total orders: {totalOrders}</h3>
                     <h3 className="text-3xl mr-2">Total price: ${totalPrice}</h3>
-                    <button disabled={(totalPrice > 0) ? false : true} className="btn normal-case border-[#BB8506] text-[#BB8506] px-6">Pay ${totalPrice}</button>
+                    <Link to="/dashboard/payment"><button disabled={(totalPrice > 0) ? false : true} className="btn normal-case border-[#BB8506] text-[#BB8506] px-6">Pay ${totalPrice}</button></Link>
                 </div>
                 <div className="overflow-x-auto">
                     <table className="table">
